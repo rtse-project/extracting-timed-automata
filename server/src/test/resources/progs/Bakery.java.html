@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>~/Con_sip04/book/conc/selma/progs/Bakery.java.html</title>
+<meta name="Generator" content="Vim/6.1">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<pre>
+<font color="#2e8b57"><b>class</b></font> Bakery <font color="#2e8b57"><b>implements</b></font> Lock {
+    <font color="#2e8b57"><b>int</b></font> N;
+    <font color="#2e8b57"><b>boolean</b></font>[] choosing; <font color="#0000ff">// inside doorway</font>
+    <font color="#2e8b57"><b>int</b></font>[] number;
+    <font color="#2e8b57"><b>public</b></font> Bakery(<font color="#2e8b57"><b>int</b></font> numProc) {
+        N = numProc;
+        choosing = <font color="#a52a2a"><b>new</b></font> <font color="#2e8b57"><b>boolean</b></font>[N];
+        number = <font color="#a52a2a"><b>new</b></font> <font color="#2e8b57"><b>int</b></font>[N];
+        <font color="#a52a2a"><b>for</b></font> (<font color="#2e8b57"><b>int</b></font> j = <font color="#ff00ff">0</font>; j &lt; N; j++) {
+            choosing[j] = <font color="#ff00ff">false</font>;
+            number[j] = <font color="#ff00ff">0</font>;
+        }
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> requestCS(<font color="#2e8b57"><b>int</b></font> i) {
+        <font color="#0000ff">// step 1: doorway: choose a number</font>
+        choosing[i] = <font color="#ff00ff">true</font>;
+        <font color="#a52a2a"><b>for</b></font> (<font color="#2e8b57"><b>int</b></font> j = <font color="#ff00ff">0</font>; j &lt; N; j++)
+            <font color="#a52a2a"><b>if</b></font> (number[j] &gt; number[i])
+                number[i] = number[j];
+        number[i]++;
+        choosing[i] = <font color="#ff00ff">false</font>;
+
+        <font color="#0000ff">// step 2: check if my number is the smallest</font>
+        <font color="#a52a2a"><b>for</b></font> (<font color="#2e8b57"><b>int</b></font> j = <font color="#ff00ff">0</font>; j &lt; N; j++) {
+            <font color="#a52a2a"><b>while</b></font> (choosing[j]) ; <font color="#0000ff">// process j in doorway</font>
+            <font color="#a52a2a"><b>while</b></font> ((number[j] != <font color="#ff00ff">0</font>) &amp;&amp;
+                    ((number[j] &lt; number[i]) ||
+                    ((number[j] == number[i]) &amp;&amp; j &lt; i)))
+                ; <font color="#0000ff">// busy wait</font>
+        }
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> releaseCS(<font color="#2e8b57"><b>int</b></font> i) { <font color="#0000ff">// exit protocol</font>
+        number[i] = <font color="#ff00ff">0</font>;
+    }
+}
+</pre>
+</body>
+</html>

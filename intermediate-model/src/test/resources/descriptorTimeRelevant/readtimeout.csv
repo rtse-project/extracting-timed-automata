@@ -1,0 +1,4 @@
+Class;Method;Signature
+java.io.InputStream;read;
+java.io.InputStream;read;byte[]
+java.io.InputStream;read;byte[],int,int

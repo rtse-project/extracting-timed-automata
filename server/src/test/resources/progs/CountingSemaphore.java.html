@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>~/Con_sip04/book/conc/selma/progs/CountingSemaphore.java.html</title>
+<meta name="Generator" content="Vim/6.1">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<pre>
+<font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>class</b></font> CountingSemaphore {
+    <font color="#2e8b57"><b>int</b></font> value;
+    <font color="#2e8b57"><b>public</b></font> CountingSemaphore(<font color="#2e8b57"><b>int</b></font> initValue) {
+        value = initValue;
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>synchronized</b></font> <font color="#2e8b57"><b>void</b></font> P() {
+        value--;
+        <font color="#a52a2a"><b>if</b></font> (value &lt; <font color="#ff00ff">0</font>) Util.myWait(<font color="#2e8b57"><b>this</b></font>);
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>synchronized</b></font> <font color="#2e8b57"><b>void</b></font> V() {
+        value++;
+        <font color="#a52a2a"><b>if</b></font> (value &lt;= <font color="#ff00ff">0</font>) notify();
+    }
+}
+</pre>
+</body>
+</html>

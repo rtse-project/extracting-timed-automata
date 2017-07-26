@@ -1,0 +1,34 @@
+<html>
+<head>
+<title>~/Con_sip04/book/conc/selma/progs/Philosopher.java.html</title>
+<meta name="Generator" content="Vim/6.1">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<pre>
+<font color="#2e8b57"><b>class</b></font> Philosopher <font color="#2e8b57"><b>implements</b></font> Runnable {
+    <font color="#2e8b57"><b>int</b></font> id = <font color="#ff00ff">0</font>;
+    Resource r = <font color="#ff00ff">null</font>;
+    <font color="#2e8b57"><b>public</b></font> Philosopher(<font color="#2e8b57"><b>int</b></font> initId, Resource initr) {
+        id = initId;
+        r = initr;
+        <font color="#a52a2a"><b>new</b></font> Thread(<font color="#2e8b57"><b>this</b></font>).start();
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> run() {
+        <font color="#a52a2a"><b>while</b></font> (<font color="#ff00ff">true</font>) {
+            <font color="#a52a2a"><b>try</b></font> {
+                System.out.println(<font color="#ff00ff">&quot;Phil &quot;</font> + id + <font color="#ff00ff">&quot; thinking&quot;</font>);
+                Thread.sleep(<font color="#ff00ff">30</font>);
+                System.out.println(<font color="#ff00ff">&quot;Phil &quot;</font> + id + <font color="#ff00ff">&quot; hungry&quot;</font>);
+                r.acquire(id);
+                System.out.println(<font color="#ff00ff">&quot;Phil &quot;</font> + id + <font color="#ff00ff">&quot; eating&quot;</font>);
+                Thread.sleep(<font color="#ff00ff">40</font>);
+                r.release(id);
+            } <font color="#a52a2a"><b>catch</b></font> (InterruptedException e) {
+                <font color="#a52a2a"><b>return</b></font>;
+            }
+        }
+    }
+}
+</pre>
+</body>
+</html>

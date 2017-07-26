@@ -1,0 +1,34 @@
+<html>
+<head>
+<title>~/Con_sip04/book/conc/selma/progs/CSemaphore.java.html</title>
+<meta name="Generator" content="Vim/6.1">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<pre>
+<font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>class</b></font> CSemaphore {
+    <font color="#2e8b57"><b>int</b></font> value;
+    BinarySemaphore mutex = <font color="#a52a2a"><b>new</b></font> BinarySemaphore(<font color="#ff00ff">true</font>);
+    BinarySemaphore s = <font color="#a52a2a"><b>new</b></font> BinarySemaphore(<font color="#ff00ff">false</font>);
+    <font color="#2e8b57"><b>public</b></font> CSemaphore(<font color="#2e8b57"><b>int</b></font> initValue) {
+        value = initValue;
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> P() {
+        mutex.P();
+        value--;
+        <font color="#a52a2a"><b>while</b></font> (value &lt; <font color="#ff00ff">0</font>) {
+            mutex.V();
+            s.P();
+            mutex.P();
+        }
+        mutex.V();
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> V() {
+        mutex.P();
+        value++;
+        <font color="#a52a2a"><b>if</b></font> (value &lt;= <font color="#ff00ff">0</font>) s.V();
+        mutex.V();
+    }
+}
+</pre>
+</body>
+</html>

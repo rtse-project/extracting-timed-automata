@@ -1,0 +1,23 @@
+<html>
+<head>
+<title>~/Con_sip04/book/conc/selma/progs/CompSwap.java.html</title>
+<meta name="Generator" content="Vim/6.1">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<pre>
+<font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>class</b></font> CompSwap {
+    <font color="#2e8b57"><b>int</b></font> myValue = <font color="#ff00ff">0</font>;
+    <font color="#2e8b57"><b>public</b></font> CompSwap(<font color="#2e8b57"><b>int</b></font> initValue) {
+        myValue = initValue;
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>synchronized</b></font> <font color="#2e8b57"><b>int</b></font> compSwapOp(<font color="#2e8b57"><b>int</b></font> prevValue, <font color="#2e8b57"><b>int</b></font> newValue) {
+        <font color="#2e8b57"><b>int</b></font> oldValue = myValue;
+        <font color="#a52a2a"><b>if</b></font> (myValue == prevValue)
+            myValue = newValue;
+        <font color="#a52a2a"><b>return</b></font> oldValue;
+    }
+}
+
+</pre>
+</body>
+</html>

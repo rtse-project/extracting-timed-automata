@@ -1,0 +1,19 @@
+<html>
+<head>
+<title>~/Con_sip04/book/conc/selma/progs/HWMutex.java.html</title>
+<meta name="Generator" content="Vim/6.1">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<pre>
+<font color="#2e8b57"><b>class</b></font> HWMutex <font color="#2e8b57"><b>implements</b></font> Lock {
+    TestAndSet lockFlag;
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> requestCS(<font color="#2e8b57"><b>int</b></font> i) { <font color="#0000ff">// entry protocol</font>
+        <font color="#a52a2a"><b>while</b></font> (lockFlag.testAndSet(<font color="#ff00ff">1</font>) == <font color="#ff00ff">1</font>) ;
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> releaseCS(<font color="#2e8b57"><b>int</b></font> i) { <font color="#0000ff">// exit protocol</font>
+        lockFlag.testAndSet(<font color="#ff00ff">0</font>);
+    }
+}
+</pre>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<html>
+<head>
+<title>~/Con_sip04/book/conc/selma/progs/MultiValued.java.html</title>
+<meta name="Generator" content="Vim/6.1">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<pre>
+<font color="#2e8b57"><b>class</b></font> MultiValued {
+    <font color="#2e8b57"><b>int</b></font> n = <font color="#ff00ff">0</font>;
+    <font color="#2e8b57"><b>boolean</b></font> A[] = <font color="#ff00ff">null</font>;
+    <font color="#2e8b57"><b>public</b></font> MultiValued(<font color="#2e8b57"><b>int</b></font> maxVal, <font color="#2e8b57"><b>int</b></font> initVal) {
+        n = maxVal;
+        A = <font color="#a52a2a"><b>new</b></font> <font color="#2e8b57"><b>boolean</b></font>[n];
+        <font color="#a52a2a"><b>for</b></font> (<font color="#2e8b57"><b>int</b></font> i = <font color="#ff00ff">0</font>; i &lt; n; i++) A[i] = <font color="#ff00ff">false</font>;
+        A[initVal] = <font color="#ff00ff">true</font>;
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>int</b></font> getValue() {
+        <font color="#2e8b57"><b>int</b></font> j = <font color="#ff00ff">0</font>;
+        <font color="#a52a2a"><b>while</b></font> (!A[j]) j++; <font color="#0000ff">// forward scan</font>
+        <font color="#2e8b57"><b>int</b></font> v = j;
+        <font color="#a52a2a"><b>for</b></font> (<font color="#2e8b57"><b>int</b></font> i = j - <font color="#ff00ff">1</font>; i &gt;= <font color="#ff00ff">0</font>; i--) <font color="#0000ff">// backward scan</font>
+            <font color="#a52a2a"><b>if</b></font> (A[i]) v = i;
+        <font color="#a52a2a"><b>return</b></font> v;
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> setValue(<font color="#2e8b57"><b>int</b></font> x) {
+        A[x] = <font color="#ff00ff">true</font>;
+        <font color="#a52a2a"><b>for</b></font> (<font color="#2e8b57"><b>int</b></font> i = x - <font color="#ff00ff">1</font>; i &gt;= <font color="#ff00ff">0</font>; i--)
+            A[i] = <font color="#ff00ff">false</font>;
+    }
+}
+
+</pre>
+</body>
+</html>

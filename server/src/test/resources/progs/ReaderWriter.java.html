@@ -1,0 +1,33 @@
+<html>
+<head>
+<title>~/Con_sip04/book/conc/selma/progs/ReaderWriter.java.html</title>
+<meta name="Generator" content="Vim/6.1">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<pre>
+<font color="#2e8b57"><b>class</b></font> ReaderWriter {
+    <font color="#2e8b57"><b>int</b></font> numReaders = <font color="#ff00ff">0</font>;
+    BinarySemaphore mutex = <font color="#a52a2a"><b>new</b></font> BinarySemaphore(<font color="#ff00ff">true</font>);
+    BinarySemaphore wlock = <font color="#a52a2a"><b>new</b></font> BinarySemaphore(<font color="#ff00ff">true</font>);
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> startRead() {
+        mutex.P();
+        numReaders++;
+        <font color="#a52a2a"><b>if</b></font> (numReaders == <font color="#ff00ff">1</font>) wlock.P();
+        mutex.V();
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> endRead() {
+        mutex.P();
+        numReaders--;
+        <font color="#a52a2a"><b>if</b></font> (numReaders == <font color="#ff00ff">0</font>) wlock.V();
+        mutex.V();
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> startWrite() {
+        wlock.P();
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> endWrite() {
+        wlock.V();
+    }
+}
+</pre>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>~/Con_sip04/book/conc/selma/progs/SeqQueue.java.html</title>
+<meta name="Generator" content="Vim/6.1">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<pre>
+<font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>class</b></font> SeqQueue {
+ <font color="#2e8b57"><b>   class</b></font> Element {
+        <font color="#2e8b57"><b>public</b></font> String data;
+        <font color="#2e8b57"><b>public</b></font> Element next;
+        <font color="#2e8b57"><b>public</b></font> Element(String s, Element e) {
+            data = s;
+            next = e;
+        }
+    }
+    <font color="#2e8b57"><b>public</b></font> Element head, tail;
+    <font color="#2e8b57"><b>public</b></font> SeqQueue() {
+        head = <font color="#ff00ff">null</font>;
+        tail = <font color="#ff00ff">null</font>;
+    }
+    <font color="#2e8b57"><b>public</b></font> SeqQueue(SeqQueue copy) {
+        Element node;
+        head = copy.head;
+        tail = copy.tail;
+        <font color="#a52a2a"><b>for</b></font> (Element i = head; i != <font color="#ff00ff">null</font>; i = i.next)
+            node = <font color="#a52a2a"><b>new</b></font> Element(i.data, i.next);
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> Enqueue(String data) {
+        Element temp = <font color="#a52a2a"><b>new</b></font> Element(data, <font color="#ff00ff">null</font>);
+        <font color="#a52a2a"><b>if</b></font> (tail == <font color="#ff00ff">null</font>) {
+            tail = temp;
+            head = tail;
+        } <font color="#a52a2a"><b>else</b></font> {
+            tail.next = temp;
+            tail = temp;
+        }
+    }
+    <font color="#2e8b57"><b>public</b></font> String Dequeue() {
+        <font color="#a52a2a"><b>if</b></font> (head == <font color="#ff00ff">null</font>) <font color="#a52a2a"><b>return</b></font> <font color="#ff00ff">null</font>;
+        String returnval = head.data;
+        head = head.next;
+        <font color="#a52a2a"><b>return</b></font> returnval;
+    }
+}
+</pre>
+</body>
+</html>

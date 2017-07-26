@@ -1,0 +1,36 @@
+<html>
+<head>
+<title>~/Con_sip04/book/conc/selma/progs/BoundedBufferMonitor.java.html</title>
+<meta name="Generator" content="Vim/6.1">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<pre>
+<font color="#2e8b57"><b>class</b></font> BoundedBufferMonitor {
+    <font color="#2e8b57"><b>final</b></font> <font color="#2e8b57"><b>int</b></font> sizeBuf = <font color="#ff00ff">10</font>;
+    <font color="#2e8b57"><b>double</b></font>[] buffer = <font color="#a52a2a"><b>new</b></font> <font color="#2e8b57"><b>double</b></font>[sizeBuf];
+    <font color="#2e8b57"><b>int</b></font> inBuf = <font color="#ff00ff">0</font>, outBuf = <font color="#ff00ff">0</font>, count = <font color="#ff00ff">0</font>;
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>synchronized</b></font> <font color="#2e8b57"><b>void</b></font> deposit(<font color="#2e8b57"><b>double</b></font> value) {
+        <font color="#a52a2a"><b>while</b></font> (count == sizeBuf) <font color="#0000ff">// buffer full</font>
+            Util.myWait(<font color="#2e8b57"><b>this</b></font>);
+        buffer[inBuf] = value;
+        inBuf = (inBuf + <font color="#ff00ff">1</font>) % sizeBuf;
+        count++;
+        <font color="#a52a2a"><b>if</b></font> (count == <font color="#ff00ff">1</font>) <font color="#0000ff">// items available for fetch</font>
+            notify();
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>synchronized</b></font> <font color="#2e8b57"><b>double</b></font> fetch() {
+        <font color="#2e8b57"><b>double</b></font> value;
+        <font color="#a52a2a"><b>while</b></font> (count == <font color="#ff00ff">0</font>) <font color="#0000ff">// buffer empty</font>
+            Util.myWait(<font color="#2e8b57"><b>this</b></font>);
+        value = buffer[outBuf];
+        outBuf = (outBuf + <font color="#ff00ff">1</font>) % sizeBuf;
+        count--;
+        <font color="#a52a2a"><b>if</b></font> (count == sizeBuf - <font color="#ff00ff">1</font>) <font color="#0000ff">// empty slots available</font>
+            notify();
+        <font color="#a52a2a"><b>return</b></font> value;
+    }
+}
+
+</pre>
+</body>
+</html>

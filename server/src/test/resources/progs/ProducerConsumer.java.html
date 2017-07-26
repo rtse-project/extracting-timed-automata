@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>~/Con_sip04/book/conc/selma/progs/ProducerConsumer.java.html</title>
+<meta name="Generator" content="Vim/6.1">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<pre>
+<font color="#a020f0">import</font> java.util.Random;
+<font color="#2e8b57"><b>class</b></font> Producer <font color="#2e8b57"><b>implements</b></font> Runnable {
+    BoundedBuffer b = <font color="#ff00ff">null</font>;
+    <font color="#2e8b57"><b>public</b></font> Producer(BoundedBuffer initb) {
+        b = initb;
+        <font color="#a52a2a"><b>new</b></font> Thread(<font color="#2e8b57"><b>this</b></font>).start();
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> run() {
+        <font color="#2e8b57"><b>double</b></font> item;
+        Random r = <font color="#a52a2a"><b>new</b></font> Random();
+        <font color="#a52a2a"><b>while</b></font> (<font color="#ff00ff">true</font>) {
+            item = r.nextDouble();
+            System.out.println(<font color="#ff00ff">&quot;produced item &quot;</font> + item);
+            b.deposit(item);
+            Util.mySleep(<font color="#ff00ff">200</font>);
+        }
+    }
+}
+<font color="#2e8b57"><b>class</b></font> Consumer <font color="#2e8b57"><b>implements</b></font> Runnable {
+    BoundedBuffer b = <font color="#ff00ff">null</font>;
+    <font color="#2e8b57"><b>public</b></font> Consumer(BoundedBuffer initb) {
+        b = initb;
+        <font color="#a52a2a"><b>new</b></font> Thread(<font color="#2e8b57"><b>this</b></font>).start();
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> run() {
+        <font color="#2e8b57"><b>double</b></font> item;
+        <font color="#a52a2a"><b>while</b></font> (<font color="#ff00ff">true</font>) {
+            item = b.fetch();
+            System.out.println(<font color="#ff00ff">&quot;fetched item &quot;</font> + item);
+             Util.mySleep(<font color="#ff00ff">50</font>);
+        }
+    }
+}
+<font color="#2e8b57"><b>class</b></font> ProducerConsumer {
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>static</b></font> <font color="#2e8b57"><b>void</b></font> main(String[] args) {
+        BoundedBuffer buffer = <font color="#a52a2a"><b>new</b></font> BoundedBuffer();
+        Producer producer = <font color="#a52a2a"><b>new</b></font> Producer(buffer);
+        Consumer consumer = <font color="#a52a2a"><b>new</b></font> Consumer(buffer);
+    }
+}
+
+</pre>
+</body>
+</html>

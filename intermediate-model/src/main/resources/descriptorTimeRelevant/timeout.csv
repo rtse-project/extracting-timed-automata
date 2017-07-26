@@ -1,0 +1,11 @@
+Class;Method;Signature
+java.net.URLConnection;connect;
+java.io.InputStream;read;
+java.io.InputStream;read;byte[]
+java.io.InputStream;read;byte[],int,int
+java.net.HttpURLConnection;connect;
+javax.net.ssl.HttpsURLConnection;connect;
+java.net.ServerSocket;accept;
+java.net.DatagramSocket;receive;DatagramPacket
+javax.net.ssl.SSLServerSocket;accept;
+java.net.MulticastSocket;receive;DatagramPacket

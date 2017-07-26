@@ -1,0 +1,50 @@
+<html>
+<head>
+<title>~/Con_sip04/book/conc/selma/progs/DiningMonitor.java.html</title>
+<meta name="Generator" content="Vim/6.1">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<pre>
+<font color="#2e8b57"><b>class</b></font> DiningMonitor <font color="#2e8b57"><b>implements</b></font> Resource {
+    <font color="#2e8b57"><b>int</b></font> n = <font color="#ff00ff">0</font>;
+    <font color="#2e8b57"><b>int</b></font> state[] = <font color="#ff00ff">null</font>;
+    <font color="#2e8b57"><b>static</b></font> <font color="#2e8b57"><b>final</b></font> <font color="#2e8b57"><b>int</b></font> thinking = <font color="#ff00ff">0</font>, hungry = <font color="#ff00ff">1</font>, eating = <font color="#ff00ff">2</font>;
+    <font color="#2e8b57"><b>public</b></font> DiningMonitor(<font color="#2e8b57"><b>int</b></font> initN) {
+        n = initN;
+        state = <font color="#a52a2a"><b>new</b></font> <font color="#2e8b57"><b>int</b></font>[n];
+        <font color="#a52a2a"><b>for</b></font> (<font color="#2e8b57"><b>int</b></font> i = <font color="#ff00ff">0</font>; i &lt; n; i++) state[i] = thinking;
+    }
+    <font color="#2e8b57"><b>int</b></font> left(<font color="#2e8b57"><b>int</b></font> i) {
+        <font color="#a52a2a"><b>return</b></font> (n + i - <font color="#ff00ff">1</font>) % n;
+    }
+    <font color="#2e8b57"><b>int</b></font> right(<font color="#2e8b57"><b>int</b></font> i) {
+        <font color="#a52a2a"><b>return</b></font> (i + <font color="#ff00ff">1</font>) % n;
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>synchronized</b></font> <font color="#2e8b57"><b>void</b></font> acquire(<font color="#2e8b57"><b>int</b></font> i) {
+        state[i] = hungry;
+        test(i);
+        <font color="#a52a2a"><b>while</b></font> (state[i] != eating)
+            Util.myWait(<font color="#2e8b57"><b>this</b></font>);
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>synchronized</b></font> <font color="#2e8b57"><b>void</b></font> release(<font color="#2e8b57"><b>int</b></font> i) {
+        state[i] = thinking;
+        test(left(i));
+        test(right(i));
+    }
+    <font color="#2e8b57"><b>void</b></font> test(<font color="#2e8b57"><b>int</b></font> i) {
+        <font color="#a52a2a"><b>if</b></font> ((state[left(i)] != eating) &amp;&amp;
+        (state[i] == hungry) &amp;&amp;
+        (state[right(i)] != eating)) {
+            state[i] = eating;
+            notifyAll();
+        }
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>static</b></font> <font color="#2e8b57"><b>void</b></font> main(String[] args) {
+        DiningMonitor dm = <font color="#a52a2a"><b>new</b></font> DiningMonitor(<font color="#ff00ff">5</font>);
+        <font color="#a52a2a"><b>for</b></font> (<font color="#2e8b57"><b>int</b></font> i = <font color="#ff00ff">0</font>; i &lt; <font color="#ff00ff">5</font>; i++)
+            <font color="#a52a2a"><b>new</b></font> Philosopher(i, dm);
+    }
+}
+</pre>
+</body>
+</html>

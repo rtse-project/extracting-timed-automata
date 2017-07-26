@@ -1,0 +1,34 @@
+<html>
+<head>
+<title>~/Con_sip04/book/conc/selma/progs/DiningPhilosopher.java.html</title>
+<meta name="Generator" content="Vim/6.1">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<pre>
+<font color="#2e8b57"><b>class</b></font> DiningPhilosopher <font color="#2e8b57"><b>implements</b></font> Resource {
+    <font color="#2e8b57"><b>int</b></font> n = <font color="#ff00ff">0</font>;
+    BinarySemaphore[] fork = <font color="#ff00ff">null</font>;
+    <font color="#2e8b57"><b>public</b></font> DiningPhilosopher(<font color="#2e8b57"><b>int</b></font> initN) {
+        n = initN;
+        fork = <font color="#a52a2a"><b>new</b></font> BinarySemaphore[n];
+        <font color="#a52a2a"><b>for</b></font> (<font color="#2e8b57"><b>int</b></font> i = <font color="#ff00ff">0</font>; i &lt; n; i++) {
+            fork[i] = <font color="#a52a2a"><b>new</b></font> BinarySemaphore(<font color="#ff00ff">true</font>);
+        }
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> acquire(<font color="#2e8b57"><b>int</b></font> i) {
+        fork[i].P();
+        fork[(i + <font color="#ff00ff">1</font>) % n].P();
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> release(<font color="#2e8b57"><b>int</b></font> i) {
+        fork[i].V();
+        fork[(i + <font color="#ff00ff">1</font>) % n].V();
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>static</b></font> <font color="#2e8b57"><b>void</b></font> main(String[] args) {
+        DiningPhilosopher dp = <font color="#a52a2a"><b>new</b></font> DiningPhilosopher(<font color="#ff00ff">5</font>);
+        <font color="#a52a2a"><b>for</b></font> (<font color="#2e8b57"><b>int</b></font> i = <font color="#ff00ff">0</font>; i &lt; <font color="#ff00ff">5</font>; i++)
+            <font color="#a52a2a"><b>new</b></font> Philosopher(i, dp);
+    }
+}
+</pre>
+</body>
+</html>

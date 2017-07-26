@@ -1,0 +1,59 @@
+ Volume in drive E is EXCHANGE
+ Volume Serial Number is 14AB-2278
+
+ Directory of E:\Spring04\selma\progs
+
+01/28/2004  05:05p                 935 Attempt1.java.html
+01/28/2004  05:07p               2,217 BoundedBuffer.java.html
+01/28/2004  05:04p               1,134 Attempt2.java.html
+01/28/2004  05:05p                 856 Attempt3.java.html
+01/28/2004  05:05p               1,094 BCell.java.html
+01/28/2004  05:05p               2,680 Bakery.java.html
+01/28/2004  05:12p               1,583 Dekker.java.html
+01/28/2004  05:10p               1,649 Cell.java.html
+01/28/2004  05:05p               1,146 BinarySemaphore.java.html
+01/28/2004  05:08p               2,351 BoundedBuffer2.java.html
+01/28/2004  05:09p               1,847 CQueue.java.html
+01/28/2004  05:09p               2,199 BoundedBufferMonitor.java.html
+01/28/2004  05:10p               1,349 CSemaphore.java.html
+01/28/2004  05:13p               3,078 DiningMonitor.java.html
+01/28/2004  05:11p               1,040 CompSwap.java.html
+01/28/2004  05:11p               4,390 ConcQueue.java.html
+01/28/2004  05:12p                 809 CondVar.java.html
+01/28/2004  05:11p               1,519 CompSwapConsensus.java.html
+01/28/2004  05:12p                 648 Consensus.java.html
+01/28/2004  05:17p               2,108 MultiValued.java.html
+01/28/2004  05:13p                 432 Element.java.html
+01/28/2004  05:12p               1,123 CountingSemaphore.java.html
+01/28/2004  05:13p               1,966 DiningPhilosopher.java.html
+01/28/2004  05:14p               2,426 FMyThread.java.html
+01/28/2004  05:14p               2,233 Fibonacci.java.html
+01/28/2004  05:14p               1,884 FooBar.java.html
+01/28/2004  05:15p               1,272 LLSC.java.html
+01/28/2004  05:16p               1,618 ListQueue.java.html
+01/28/2004  05:16p                 638 Lock.java.html
+01/28/2004  05:15p                 836 HelloWorldThread.java.html
+01/28/2004  05:16p               1,068 LockTest.java.html
+01/28/2004  05:17p               3,026 MRSW.java.html
+01/28/2004  05:19p               1,333 SRSW.java.html
+01/28/2004  05:16p               2,135 LockFreeSnapshot.java.html
+01/28/2004  05:17p               3,437 MProducerConsumer.java.html
+01/28/2004  05:17p               2,787 MultiWriter.java.html
+01/28/2004  05:18p               2,434 MyThread.java.html
+01/28/2004  05:18p                 472 ObjPointer.java.html
+01/28/2004  05:18p               1,783 Philosopher.java.html
+01/28/2004  05:18p               1,167 PetersonAlgorithm.java.html
+01/28/2004  05:18p               1,611 Pointer.java.html
+01/28/2004  05:19p               1,424 ReaderWriter.java.html
+01/28/2004  05:18p               2,541 ProducerConsumer.java.html
+01/28/2004  05:19p                 868 RegularBoolean.java.html
+01/28/2004  05:19p                 554 Resource.java.html
+01/28/2004  05:20p                 681 SafeBoolean.java.html
+01/28/2004  05:20p                 793 SemaphoreLock.java.html
+01/28/2004  05:20p               2,121 SeqQueue.java.html
+01/28/2004  05:20p                 699 Synch.java.html
+01/28/2004  05:22p                 772 TestAndSet.java.html
+01/28/2004  05:21p               1,244 TestSetConsensus.java.html
+01/28/2004  05:23p                 942 HWMutex.java.html
+              52 File(s)         82,952 bytes
+               0 Dir(s)   7,572,836,352 bytes free

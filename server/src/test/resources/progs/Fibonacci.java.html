@@ -1,0 +1,43 @@
+<html>
+<head>
+<title>~/Con_sip04/book/conc/selma/progs/Fibonacci.java.html</title>
+<meta name="Generator" content="Vim/6.1">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<pre>
+<font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>class</b></font> Fibonacci <font color="#2e8b57"><b>extends</b></font> Thread {
+    <font color="#2e8b57"><b>int</b></font> n;
+    <font color="#2e8b57"><b>int</b></font> result;
+    <font color="#2e8b57"><b>public</b></font> Fibonacci(<font color="#2e8b57"><b>int</b></font> n) {
+        <font color="#2e8b57"><b>this</b></font>.n = n;
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> run() {
+        <font color="#a52a2a"><b>if</b></font> ((n == <font color="#ff00ff">0</font>)||(n == <font color="#ff00ff">1</font> )) result = <font color="#ff00ff">1</font>;
+        <font color="#a52a2a"><b>else</b></font> {
+            Fibonacci f1 = <font color="#a52a2a"><b>new</b></font> Fibonacci(n-<font color="#ff00ff">1</font>);
+            Fibonacci f2 = <font color="#a52a2a"><b>new</b></font> Fibonacci(n-<font color="#ff00ff">2</font>);
+            f1.start();
+            f2.start();
+            <font color="#a52a2a"><b>try</b></font> {
+                f1.join();
+                f2.join();
+            } <font color="#a52a2a"><b>catch</b></font> (InterruptedException e){};
+            result = f1.getResult() + f2.getResult();
+        }
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>int</b></font> getResult(){
+        <font color="#a52a2a"><b>return</b></font> result;
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>static</b></font> <font color="#2e8b57"><b>void</b></font> main(String[] args) {
+        Fibonacci f1 = <font color="#a52a2a"><b>new</b></font> Fibonacci(Integer.parseInt(args[<font color="#ff00ff">0</font>]));
+        f1.start();
+        <font color="#a52a2a"><b>try</b></font> {
+            f1.join();
+        } <font color="#a52a2a"><b>catch</b></font> (InterruptedException e){};
+        System.out.println(<font color="#ff00ff">&quot;Answer is &quot;</font> + f1.getResult());
+    }
+}
+
+</pre>
+</body>
+</html>

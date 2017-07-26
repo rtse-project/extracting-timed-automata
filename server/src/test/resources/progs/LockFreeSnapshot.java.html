@@ -1,0 +1,38 @@
+<html>
+<head>
+<title>~/Con_sip04/book/conc/selma/progs/LockFreeSnapshot.java.html</title>
+<meta name="Generator" content="Vim/6.1">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<pre>
+<font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>class</b></font> LockFreeSnapshot {
+    <font color="#2e8b57"><b>int</b></font> n = <font color="#ff00ff">0</font>;
+    SRSW[] V;
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> LockFreeSnapshot(<font color="#2e8b57"><b>int</b></font> initN) {
+        n = initN;
+        V = <font color="#a52a2a"><b>new</b></font> SRSW[n];
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> writeLoc(<font color="#2e8b57"><b>int</b></font> k, <font color="#2e8b57"><b>int</b></font> x) {
+        <font color="#2e8b57"><b>int</b></font> seq = V[k].ts;
+        V[k].setValue(x, seq + <font color="#ff00ff">1</font>);
+    }
+    <font color="#2e8b57"><b>public</b></font> SRSW[] readArray() {
+        SRSW[] W = <font color="#a52a2a"><b>new</b></font> SRSW[n];<font color="#0000ff">// W is local</font>
+        <font color="#2e8b57"><b>boolean</b></font> done = <font color="#ff00ff">false</font>;
+        <font color="#a52a2a"><b>while</b></font> (!done) {
+            <font color="#a52a2a"><b>for</b></font> (<font color="#2e8b57"><b>int</b></font> i = <font color="#ff00ff">0</font>; i &lt; n; i++) <font color="#0000ff">// copy V to W</font>
+                W[i].setValue(V[i].value, V[i].ts);
+            done = <font color="#ff00ff">true</font>;
+            <font color="#0000ff">// check if V has changed</font>
+            <font color="#a52a2a"><b>for</b></font> (<font color="#2e8b57"><b>int</b></font> i = <font color="#ff00ff">0</font>; i &lt; n; i++)
+                <font color="#a52a2a"><b>if</b></font> (W[i].ts != V[i].ts) {
+                    done = <font color="#ff00ff">false</font>;
+                    <font color="#a52a2a"><b>break</b></font>;
+                }
+        }
+        <font color="#a52a2a"><b>return</b></font> W;
+    }
+}
+</pre>
+</body>
+</html>

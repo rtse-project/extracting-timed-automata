@@ -1,0 +1,32 @@
+<html>
+<head>
+<title>~/Con_sip04/book/conc/selma/progs/Pointer.java.html</title>
+<meta name="Generator" content="Vim/6.1">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<pre>
+<font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>class</b></font> Pointer {
+    <font color="#2e8b57"><b>public</b></font> Element ptr;
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>int</b></font> count;
+    <font color="#2e8b57"><b>public</b></font> Pointer(Element initItem, <font color="#2e8b57"><b>int</b></font> initCount) {
+        ptr = initItem;
+        count = initCount;
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>synchronized</b></font> <font color="#2e8b57"><b>void</b></font> copyTo(Pointer x) {
+        <font color="#0000ff">// assumes that x is accessed by at most one process</font>
+        x.ptr = ptr;
+        x.count = count;
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>synchronized</b></font> <font color="#2e8b57"><b>boolean</b></font>
+            CAS(Pointer localPtr, Element newPtr, <font color="#2e8b57"><b>int</b></font> newCount) {
+        <font color="#a52a2a"><b>if</b></font> ((ptr == localPtr.ptr) &amp;&amp; (count == localPtr.count)) {
+            ptr = newPtr;
+            count = newCount;
+            <font color="#a52a2a"><b>return</b></font> <font color="#ff00ff">true</font>;
+        } <font color="#a52a2a"><b>else</b></font>
+            <font color="#a52a2a"><b>return</b></font> <font color="#ff00ff">false</font>;
+    }
+}
+</pre>
+</body>
+</html>

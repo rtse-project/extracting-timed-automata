@@ -1,0 +1,19 @@
+<html>
+<head>
+<title>~/Con_sip04/book/conc/selma/progs/Attempt3.java.html</title>
+<meta name="Generator" content="Vim/6.1">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<pre>
+<font color="#2e8b57"><b>class</b></font> Attempt3 <font color="#2e8b57"><b>implements</b></font> Lock {
+    <font color="#2e8b57"><b>int</b></font> turn = <font color="#ff00ff">0</font>;
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> requestCS(<font color="#2e8b57"><b>int</b></font> i) {
+        <font color="#a52a2a"><b>while</b></font> (turn == <font color="#ff00ff">1</font> - i) ;
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> releaseCS(<font color="#2e8b57"><b>int</b></font> i) {
+        turn = <font color="#ff00ff">1</font> - i;
+    }
+}
+</pre>
+</body>
+</html>

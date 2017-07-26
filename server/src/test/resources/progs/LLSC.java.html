@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>~/Con_sip04/book/conc/selma/progs/LLSC.java.html</title>
+<meta name="Generator" content="Vim/6.1">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<pre>
+<font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>class</b></font> LLSC {
+    ObjPointer p;
+    <font color="#2e8b57"><b>public</b></font> LLSC(Object x) {
+        p.obj = x;
+        p.version = <font color="#ff00ff">0</font>;
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>synchronized</b></font> <font color="#2e8b57"><b>void</b></font> load_linked(ObjPointer local) {
+        local.obj = p.obj;
+        local.version = p.version;
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>synchronized</b></font> <font color="#2e8b57"><b>boolean</b></font>
+    store_conditional(ObjPointer local, Object newObj) {
+        <font color="#a52a2a"><b>if</b></font> ((p.obj == local.obj) &amp;&amp; (p.version == local.version)) {
+            p.obj = newObj;
+            p.version++;
+            <font color="#a52a2a"><b>return</b></font> <font color="#ff00ff">true</font>;
+        }
+        <font color="#a52a2a"><b>return</b></font> <font color="#ff00ff">false</font>;
+    }
+}
+</pre>
+</body>
+</html>

@@ -1,0 +1,12 @@
+12,org.apache.kafka.clients.consumer.internals.ConsumerCoordinator,commitOffsetsSync,507,time,org.apache.kafka.common.utils.SystemTime@63ca8f5f
+12,org.apache.kafka.clients.consumer.internals.ConsumerCoordinator,commitOffsetsSync,508,now,1494237147028
+12,org.apache.kafka.clients.consumer.internals.ConsumerCoordinator,commitOffsetsSync,511,now,1494237147028
+12,org.apache.kafka.clients.consumer.internals.ConsumerCoordinator,commitOffsetsSync,511,remainingMs,30000
+12,org.apache.kafka.clients.consumer.internals.ConsumerCoordinator,commitOffsetsSync,507,time,org.apache.kafka.common.utils.SystemTime@63ca8f5f
+12,org.apache.kafka.clients.consumer.internals.ConsumerCoordinator,commitOffsetsSync,508,now,1494237168777
+12,org.apache.kafka.clients.consumer.internals.ConsumerCoordinator,commitOffsetsSync,511,now,1494237168777
+12,org.apache.kafka.clients.consumer.internals.ConsumerCoordinator,commitOffsetsSync,511,remainingMs,30000
+12,org.apache.kafka.clients.consumer.internals.ConsumerCoordinator,commitOffsetsSync,507,time,org.apache.kafka.common.utils.SystemTime@63ca8f5f
+12,org.apache.kafka.clients.consumer.internals.ConsumerCoordinator,commitOffsetsSync,508,now,1494237186158
+12,org.apache.kafka.clients.consumer.internals.ConsumerCoordinator,commitOffsetsSync,511,now,1494237186158
+12,org.apache.kafka.clients.consumer.internals.ConsumerCoordinator,commitOffsetsSync,511,remainingMs,30000

@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>~/Con_sip04/book/conc/selma/progs/CondVar.java.html</title>
+<meta name="Generator" content="Vim/6.1">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<pre>
+<font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>class</b></font> CondVar {
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>synchronized</b></font> <font color="#2e8b57"><b>void</b></font> condWait() {
+        <font color="#a52a2a"><b>try</b></font> {
+            wait();
+        } <font color="#a52a2a"><b>catch</b></font> (InterruptedException e) {
+        }
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>synchronized</b></font> <font color="#2e8b57"><b>void</b></font> condNotify() {
+        notify();
+    }
+}
+</pre>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>~/Con_sip04/book/conc/selma/progs/TestSetConsensus.java.html</title>
+<meta name="Generator" content="Vim/6.1">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<pre>
+<font color="#2e8b57"><b>class</b></font> TestSetConsensus <font color="#2e8b57"><b>implements</b></font> Consensus {
+    TestAndSet x;
+    <font color="#2e8b57"><b>int</b></font> proposed[] = {<font color="#ff00ff">0</font>, <font color="#ff00ff">0</font>};
+    <font color="#0000ff">// assumes pid is 0 or 1</font>
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> propose(<font color="#2e8b57"><b>int</b></font> pid, <font color="#2e8b57"><b>int</b></font> v) {
+        proposed[pid] = v;
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>int</b></font> decide(<font color="#2e8b57"><b>int</b></font> pid) {
+        <font color="#a52a2a"><b>if</b></font> (x.testAndSet(pid) == -<font color="#ff00ff">1</font>)
+            <font color="#a52a2a"><b>return</b></font> proposed[pid];
+        <font color="#a52a2a"><b>else</b></font>
+            <font color="#a52a2a"><b>return</b></font> proposed[<font color="#ff00ff">1</font> - pid];
+    }
+}
+
+</pre>
+</body>
+</html>

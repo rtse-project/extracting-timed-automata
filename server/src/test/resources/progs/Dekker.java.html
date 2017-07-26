@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>~/Con_sip04/book/conc/selma/progs/Dekker.java.html</title>
+<meta name="Generator" content="Vim/6.1">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<pre>
+<font color="#2e8b57"><b>class</b></font> Dekker <font color="#2e8b57"><b>implements</b></font> Lock {
+    <font color="#2e8b57"><b>boolean</b></font> wantCS[] = {<font color="#ff00ff">false</font>, <font color="#ff00ff">false</font>};
+    <font color="#2e8b57"><b>int</b></font> turn = <font color="#ff00ff">1</font>;
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> requestCS(<font color="#2e8b57"><b>int</b></font> i) { <font color="#0000ff">// entry protocol</font>
+        <font color="#2e8b57"><b>int</b></font> j = <font color="#ff00ff">1</font> - i;
+        wantCS[i] = <font color="#ff00ff">true</font>;
+        <font color="#a52a2a"><b>while</b></font> (wantCS[j]) {
+            <font color="#a52a2a"><b>if</b></font> (turn == j) {
+                wantCS[i] = <font color="#ff00ff">false</font>;
+                <font color="#a52a2a"><b>while</b></font> (turn == j) ;<font color="#0000ff">// busy wait</font>
+                wantCS[i] = <font color="#ff00ff">true</font>;
+            }
+        }
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> releaseCS(<font color="#2e8b57"><b>int</b></font> i) { <font color="#0000ff">// exit protocol</font>
+        turn = <font color="#ff00ff">1</font> - i;
+        wantCS[i] = <font color="#ff00ff">false</font>;
+    }
+}
+</pre>
+</body>
+</html>

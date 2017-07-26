@@ -1,0 +1,39 @@
+<html>
+<head>
+<title>~/Con_sip04/book/conc/selma/progs/CQueue.java.html</title>
+<meta name="Generator" content="Vim/6.1">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<pre>
+<font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>class</b></font> CQueue {
+    <font color="#2e8b57"><b>private</b></font> LLSC x;
+    <font color="#2e8b57"><b>public</b></font> CQueue() {
+        x = <font color="#a52a2a"><b>new</b></font> LLSC(<font color="#a52a2a"><b>new</b></font> SeqQueue());
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> Enqueue(String data) {
+        SeqQueue new_queue;
+        ObjPointer local = <font color="#a52a2a"><b>new</b></font> ObjPointer();
+        <font color="#a52a2a"><b>while</b></font> (<font color="#ff00ff">true</font>) {
+            x.load_linked(local);
+            new_queue = <font color="#a52a2a"><b>new</b></font> SeqQueue((SeqQueue) local.obj);
+            new_queue.Enqueue(data);
+            <font color="#a52a2a"><b>if</b></font> (x.store_conditional(local, new_queue))
+                <font color="#a52a2a"><b>return</b></font>;
+        }
+    }
+    <font color="#2e8b57"><b>public</b></font> String Dequeue() {
+        SeqQueue new_queue;
+        ObjPointer local = <font color="#a52a2a"><b>new</b></font> ObjPointer();
+        String returnval;
+        <font color="#a52a2a"><b>while</b></font> (<font color="#ff00ff">true</font>) {
+            x.load_linked(local);
+            new_queue = <font color="#a52a2a"><b>new</b></font> SeqQueue((SeqQueue) local.obj);
+            returnval = new_queue.Dequeue();
+            <font color="#a52a2a"><b>if</b></font> (x.store_conditional(local, new_queue))
+                <font color="#a52a2a"><b>return</b></font> returnval;
+        }
+    }
+}
+</pre>
+</body>
+</html>

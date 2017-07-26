@@ -1,0 +1,47 @@
+<html>
+<head>
+<title>~/Con_sip04/book/conc/selma/progs/BoundedBuffer2.java.html</title>
+<meta name="Generator" content="Vim/6.1">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<pre>
+<font color="#2e8b57"><b>class</b></font> BoundedBuffer2 {
+    <font color="#2e8b57"><b>final</b></font> <font color="#2e8b57"><b>int</b></font> sizeBuf = <font color="#ff00ff">10</font>;
+    <font color="#2e8b57"><b>double</b></font>[] buffer = <font color="#a52a2a"><b>new</b></font> <font color="#2e8b57"><b>double</b></font>[sizeBuf];
+    <font color="#2e8b57"><b>int</b></font> inBuf = <font color="#ff00ff">0</font>, outBuf = <font color="#ff00ff">0</font>, count = <font color="#ff00ff">0</font>;
+    BinarySemaphore mutex = <font color="#a52a2a"><b>new</b></font> BinarySemaphore(<font color="#ff00ff">true</font>);
+    BinarySemaphore isEmpty = <font color="#a52a2a"><b>new</b></font> BinarySemaphore(<font color="#ff00ff">false</font>);
+    BinarySemaphore isFull = <font color="#a52a2a"><b>new</b></font> BinarySemaphore(<font color="#ff00ff">true</font>);
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> deposit(<font color="#2e8b57"><b>double</b></font> value) {
+        mutex.P();
+        <font color="#a52a2a"><b>while</b></font> (count == sizeBuf) {
+            mutex.V();
+            isFull.P();
+            mutex.P();
+        }
+        buffer[inBuf] = value;
+        inBuf = (inBuf + <font color="#ff00ff">1</font>) % sizeBuf;
+        count++;
+        <font color="#a52a2a"><b>if</b></font> (count == <font color="#ff00ff">1</font>) isEmpty.V();
+        mutex.V();
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>double</b></font> fetch() {
+        <font color="#2e8b57"><b>double</b></font> value;
+        mutex.P();
+        <font color="#a52a2a"><b>while</b></font> (count == <font color="#ff00ff">0</font>) {
+            mutex.V();
+            isEmpty.P();
+            mutex.P();
+        }
+        value = buffer[outBuf];
+        outBuf = (outBuf + <font color="#ff00ff">1</font>) % sizeBuf;
+        count--;
+        <font color="#a52a2a"><b>if</b></font> (count == sizeBuf - <font color="#ff00ff">1</font>) isFull.V();
+        mutex.V();
+        <font color="#a52a2a"><b>return</b></font> value;
+    }
+}
+
+</pre>
+</body>
+</html>

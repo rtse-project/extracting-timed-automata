@@ -1,0 +1,55 @@
+<html>
+<head>
+<title>~/Con_sip04/book/conc/selma/progs/ConcQueue.java.html</title>
+<meta name="Generator" content="Vim/6.1">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<pre>
+<font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>class</b></font> ConcQueue {
+    <font color="#2e8b57"><b>private</b></font> Pointer head, tail;
+    <font color="#2e8b57"><b>public</b></font> ConcQueue() { <font color="#0000ff">// set head and tail to a dummy node</font>
+        head = <font color="#a52a2a"><b>new</b></font> Pointer(<font color="#a52a2a"><b>new</b></font> Element(), <font color="#ff00ff">0</font>);
+        head.ptr.next = <font color="#a52a2a"><b>new</b></font> Pointer(<font color="#ff00ff">null</font>, <font color="#ff00ff">0</font>);
+        tail = <font color="#a52a2a"><b>new</b></font> Pointer(head.ptr, head.count);
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> Enqueue(String data) {
+        Pointer ltail = <font color="#a52a2a"><b>new</b></font> Pointer(<font color="#ff00ff">null</font>, <font color="#ff00ff">0</font>);
+        Pointer lnext = <font color="#a52a2a"><b>new</b></font> Pointer(<font color="#ff00ff">null</font>, <font color="#ff00ff">0</font>);
+        Element node = <font color="#a52a2a"><b>new</b></font> Element();
+        node.data = data;
+        node.next = <font color="#a52a2a"><b>new</b></font> Pointer(<font color="#ff00ff">null</font>, <font color="#ff00ff">0</font>);
+        <font color="#a52a2a"><b>while</b></font> (<font color="#ff00ff">true</font>) {
+            tail.copyTo(ltail); <font color="#0000ff">// make a local copy of tail</font>
+            ltail.ptr.next.copyTo(lnext); <font color="#0000ff">// copy  tail.next;</font>
+            <font color="#a52a2a"><b>if</b></font> (lnext.ptr == <font color="#ff00ff">null</font>) {
+                <font color="#0000ff">// if successful swing next to new node</font>
+                <font color="#a52a2a"><b>if</b></font> (ltail.ptr.next.CAS(lnext, node, lnext.count + <font color="#ff00ff">1</font>))
+                    <font color="#a52a2a"><b>break</b></font>; <font color="#0000ff">// if successful, enqueue is done</font>
+            } <font color="#a52a2a"><b>else</b></font>  <font color="#0000ff">// Need to swing tail to last node</font>
+                tail.CAS(ltail, lnext.ptr, ltail.count + <font color="#ff00ff">1</font>);
+        }
+        <font color="#0000ff">// Try to swing tail to inserted node</font>
+        tail.CAS(ltail, node, ltail.count + <font color="#ff00ff">1</font>);
+    }
+    <font color="#2e8b57"><b>public</b></font> String Dequeue() {
+        Pointer ltail = <font color="#a52a2a"><b>new</b></font> Pointer(<font color="#ff00ff">null</font>, <font color="#ff00ff">0</font>);
+        Pointer lhead = <font color="#a52a2a"><b>new</b></font> Pointer(<font color="#ff00ff">null</font>, <font color="#ff00ff">0</font>);
+        Pointer lnext = <font color="#a52a2a"><b>new</b></font> Pointer(<font color="#ff00ff">null</font>, <font color="#ff00ff">0</font>);
+        <font color="#a52a2a"><b>while</b></font> (<font color="#ff00ff">true</font>) {
+            tail.copyTo(ltail); <font color="#0000ff">// make a local copy of tail</font>
+            head.copyTo(lhead); <font color="#0000ff">// make a local copy of head</font>
+            lhead.ptr.next.copyTo(lnext); <font color="#0000ff">// copy head.next;</font>
+            <font color="#a52a2a"><b>if</b></font> (lhead.ptr == ltail.ptr) { <font color="#0000ff">//queue empty or tail is behind</font>
+                <font color="#a52a2a"><b>if</b></font> (lnext.ptr == <font color="#ff00ff">null</font>) <font color="#a52a2a"><b>return</b></font> <font color="#ff00ff">null</font>; <font color="#0000ff">// queue is empty</font>
+                tail.CAS(ltail, lnext.ptr, ltail.count + <font color="#ff00ff">1</font>); <font color="#0000ff">//advance tail</font>
+            } <font color="#a52a2a"><b>else</b></font> {
+                String return_val = lnext.ptr.data;
+                <font color="#a52a2a"><b>if</b></font> (head.CAS(lhead, lnext.ptr, lhead.count + <font color="#ff00ff">1</font>))
+                    <font color="#a52a2a"><b>return</b></font> return_val; <font color="#0000ff">// dequeue is done</font>
+            }
+        }
+    }
+}
+</pre>
+</body>
+</html>

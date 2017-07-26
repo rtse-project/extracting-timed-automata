@@ -1,0 +1,47 @@
+<html>
+<head>
+<title>~/Con_sip04/book/conc/selma/progs/MRSW.java.html</title>
+<meta name="Generator" content="Vim/6.1">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<pre>
+<font color="#2e8b57"><b>class</b></font> MRSW {
+    <font color="#2e8b57"><b>int</b></font> n = <font color="#ff00ff">0</font>;
+    SRSW V[] = <font color="#ff00ff">null</font>;<font color="#0000ff">// value written for reader i</font>
+    SRSW Comm[][] = <font color="#ff00ff">null</font>; <font color="#0000ff">// communication between readers</font>
+    <font color="#2e8b57"><b>int</b></font> seqNo = <font color="#ff00ff">0</font>;
+    <font color="#2e8b57"><b>public</b></font> MRSW(<font color="#2e8b57"><b>int</b></font> readers, <font color="#2e8b57"><b>int</b></font> initVal) {
+        n = readers;
+        V = <font color="#a52a2a"><b>new</b></font> SRSW[n];
+        <font color="#a52a2a"><b>for</b></font> (<font color="#2e8b57"><b>int</b></font> i = <font color="#ff00ff">0</font>; i &lt; n; i++)
+            V[i].setValue(initVal, <font color="#ff00ff">0</font>);
+        Comm = <font color="#a52a2a"><b>new</b></font> SRSW[n][n];
+        <font color="#a52a2a"><b>for</b></font> (<font color="#2e8b57"><b>int</b></font> i = <font color="#ff00ff">0</font>; i &lt; n; i++)
+            <font color="#a52a2a"><b>for</b></font> (<font color="#2e8b57"><b>int</b></font> j = <font color="#ff00ff">0</font>; j &lt; n; j++)
+                Comm[i][j].setValue(initVal, <font color="#ff00ff">0</font>);
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>int</b></font> getValue(<font color="#2e8b57"><b>int</b></font> r) {<font color="#0000ff">//reader r reads</font>
+        <font color="#0000ff">//read your own register</font>
+        SRSW tsv = V[r]; <font color="#0000ff">// tsv is local</font>
+
+        <font color="#0000ff">// find the value with the largest timestamp</font>
+        <font color="#a52a2a"><b>for</b></font> (<font color="#2e8b57"><b>int</b></font> i = <font color="#ff00ff">0</font>; i &lt; n; i++)
+            <font color="#a52a2a"><b>if</b></font> (Comm[i][r].getTS() &gt; tsv.getTS())
+                tsv = Comm[i][r];
+
+        <font color="#0000ff">// inform other readers</font>
+        <font color="#a52a2a"><b>for</b></font> (<font color="#2e8b57"><b>int</b></font> i = <font color="#ff00ff">0</font>; i &lt; n; i++) {
+            Comm[r][i].setValue(tsv);
+        }
+        <font color="#a52a2a"><b>return</b></font> tsv.getValue();
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> setValue(<font color="#2e8b57"><b>int</b></font> x) {<font color="#0000ff">// accessed by the writer</font>
+        <font color="#0000ff">// write the value with a larger timestamp</font>
+        seqNo++;
+        <font color="#a52a2a"><b>for</b></font> (<font color="#2e8b57"><b>int</b></font> i = <font color="#ff00ff">0</font>; i &lt; n; i++)
+            V[i].setValue(x, seqNo);
+    }
+}
+</pre>
+</body>
+</html>

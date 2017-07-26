@@ -1,0 +1,37 @@
+<html>
+<head>
+<title>~/Con_sip04/book/conc/selma/progs/ListQueue.java.html</title>
+<meta name="Generator" content="Vim/6.1">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<pre>
+<font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>class</b></font> ListQueue {
+ <font color="#2e8b57"><b>   class</b></font> Node {
+        <font color="#2e8b57"><b>public</b></font> String data;
+        <font color="#2e8b57"><b>public</b></font> Node next;
+    }
+    Node head = <font color="#ff00ff">null</font>, tail = <font color="#ff00ff">null</font>;
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>synchronized</b></font> <font color="#2e8b57"><b>void</b></font> enqueue(String data) {
+        Node temp = <font color="#a52a2a"><b>new</b></font> Node();
+        temp.data = data;
+        temp.next = <font color="#ff00ff">null</font>;
+        <font color="#a52a2a"><b>if</b></font> (tail == <font color="#ff00ff">null</font>) {
+            tail = temp;
+            head = tail;
+        } <font color="#a52a2a"><b>else</b></font> {
+            tail.next = temp;
+            tail = temp;
+        }
+        notify();
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>synchronized</b></font> String dequeue() {
+        <font color="#a52a2a"><b>while</b></font> (head == <font color="#ff00ff">null</font>)
+            Util.myWait(<font color="#2e8b57"><b>this</b></font>);
+        String returnval = head.data;
+        head = head.next;
+        <font color="#a52a2a"><b>return</b></font> returnval;
+    }
+}
+</pre>
+</body>
+</html>

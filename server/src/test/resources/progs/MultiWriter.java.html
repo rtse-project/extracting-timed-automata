@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>~/Con_sip04/book/conc/selma/progs/MultiWriter.java.html</title>
+<meta name="Generator" content="Vim/6.1">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<pre>
+<font color="#2e8b57"><b>class</b></font> MultiWriter {
+ <font color="#2e8b57"><b>   class</b></font> MRSW {
+        <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>int</b></font> val = <font color="#ff00ff">0</font>, ts = <font color="#ff00ff">0</font>, pid = <font color="#ff00ff">0</font>;
+        <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>synchronized</b></font> <font color="#2e8b57"><b>void</b></font> setValue(<font color="#2e8b57"><b>int</b></font> x, <font color="#2e8b57"><b>int</b></font> seq, <font color="#2e8b57"><b>int</b></font> id) {
+            val = x;
+            ts = seq;
+            pid = id;
+        }
+    }
+    <font color="#2e8b57"><b>int</b></font> n = <font color="#ff00ff">0</font>;
+    MRSW V[] = <font color="#ff00ff">null</font>;<font color="#0000ff">// value written by the writer i</font>
+    <font color="#2e8b57"><b>public</b></font> MultiWriter(<font color="#2e8b57"><b>int</b></font> writers, <font color="#2e8b57"><b>int</b></font> initVal) {
+        n = writers;
+        V = <font color="#a52a2a"><b>new</b></font> MRSW[n];
+        <font color="#a52a2a"><b>for</b></font> (<font color="#2e8b57"><b>int</b></font> i = <font color="#ff00ff">0</font>; i &lt; n; i++)
+            V[i].setValue(initVal, <font color="#ff00ff">0</font>, i);
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>int</b></font> getValue() {
+        MRSW tsv = V[<font color="#ff00ff">0</font>]; <font color="#0000ff">// tsv is local</font>
+        <font color="#a52a2a"><b>for</b></font> (<font color="#2e8b57"><b>int</b></font> i = <font color="#ff00ff">1</font>; i &lt; n; i++)
+            <font color="#a52a2a"><b>if</b></font> ((tsv.ts &lt; V[i].ts) ||
+            ((tsv.ts == V[i].ts) &amp;&amp; (tsv.pid &lt; V[i].pid)))
+                tsv = V[i];
+        <font color="#a52a2a"><b>return</b></font> tsv.val;
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> setValue(<font color="#2e8b57"><b>int</b></font> w, <font color="#2e8b57"><b>int</b></font> x) { <font color="#0000ff">// writer w</font>
+        <font color="#2e8b57"><b>int</b></font> maxseq = V[<font color="#ff00ff">0</font>].ts;
+        <font color="#a52a2a"><b>for</b></font> (<font color="#2e8b57"><b>int</b></font> i = <font color="#ff00ff">1</font>; i &lt; n; i++)
+            <font color="#a52a2a"><b>if</b></font> (maxseq &lt; V[i].ts) maxseq = V[i].ts;
+        V[w].setValue(x, maxseq + <font color="#ff00ff">1</font>, w);
+    }
+}
+
+
+</pre>
+</body>
+</html>

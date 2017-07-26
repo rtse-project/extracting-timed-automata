@@ -1,0 +1,38 @@
+<html>
+<head>
+<title>~/Con_sip04/book/conc/selma/progs/BoundedBuffer.java.html</title>
+<meta name="Generator" content="Vim/6.1">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<pre>
+<font color="#2e8b57"><b>class</b></font> BoundedBuffer {
+    <font color="#2e8b57"><b>final</b></font> <font color="#2e8b57"><b>int</b></font> size = <font color="#ff00ff">10</font>;
+    <font color="#2e8b57"><b>double</b></font>[] buffer = <font color="#a52a2a"><b>new</b></font> <font color="#2e8b57"><b>double</b></font>[size];
+    <font color="#2e8b57"><b>int</b></font> inBuf = <font color="#ff00ff">0</font>, outBuf = <font color="#ff00ff">0</font>;
+    BinarySemaphore mutex = <font color="#a52a2a"><b>new</b></font> BinarySemaphore(<font color="#ff00ff">true</font>);
+    CountingSemaphore isEmpty = <font color="#a52a2a"><b>new</b></font> CountingSemaphore(<font color="#ff00ff">0</font>);
+    CountingSemaphore isFull = <font color="#a52a2a"><b>new</b></font> CountingSemaphore(size);
+
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>void</b></font> deposit(<font color="#2e8b57"><b>double</b></font> value) {
+        isFull.P();<font color="#0000ff">// wait if buffer is full</font>
+        mutex.P(); <font color="#0000ff">// ensures mutual exclusion</font>
+        buffer[inBuf] = value; <font color="#0000ff">// update the buffer</font>
+        inBuf = (inBuf + <font color="#ff00ff">1</font>) % size;
+        mutex.V();
+        isEmpty.V();  <font color="#0000ff">// notify any waiting consumer</font>
+    }
+    <font color="#2e8b57"><b>public</b></font> <font color="#2e8b57"><b>double</b></font> fetch() {
+        <font color="#2e8b57"><b>double</b></font> value;
+        isEmpty.P(); <font color="#0000ff">// wait if buffer is empty</font>
+        mutex.P();  <font color="#0000ff">// ensures mutual exclusion</font>
+        value = buffer[outBuf]; <font color="#0000ff">//read from buffer</font>
+        outBuf = (outBuf + <font color="#ff00ff">1</font>) % size;
+        mutex.V();
+        isFull.V(); <font color="#0000ff">// notify any waiting producer</font>
+        <font color="#a52a2a"><b>return</b></font> value;
+    }
+}
+
+</pre>
+</body>
+</html>
