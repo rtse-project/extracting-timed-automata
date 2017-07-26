@@ -32,10 +32,11 @@ import java.io.IOException;
  */
 public class ExampleCombineTraces {
     public static void main(String[] args) throws IOException {
-        if(args.length == 0)
-            def();
-        else
-            HandleReplacement.createModelsFromTraces(args[0], args[1], args[2]);
+        if(args.length != 3){
+            System.out.println("Usage with: automata.xml trace.txt outputDir");
+            return;
+        }
+        HandleReplacement.createModelsFromTraces(args[0], args[1], args[2]);
     }
 
     private static void def() throws IOException {
